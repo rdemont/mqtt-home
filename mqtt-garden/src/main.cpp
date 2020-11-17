@@ -34,23 +34,27 @@ void sendMqtt()
   temperature = bme.readTemperature(); 
   pressure = bme.readPressure() / 100.0F;       
 
+  Serial.println("Send MQTT");
+
   mqttHome.mqttPublish(mqttHome.getMqttPath() + "/sensor/temperature",String(temperature));
   mqttHome.mqttPublish(mqttHome.getMqttPath() + "/sensor/humidity",String(humidity));
   mqttHome.mqttPublish(mqttHome.getMqttPath() + "/sensor/pressure",String(pressure));
 
+  Serial.println("end send MQTT");
+
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   delayTime = 1000;
-  delay(100);
+  //delay(100);
 
   bme.begin(0x76); 
 
   mqttHome.wifiConnect();
   mqttHome.mqttConnect();  
 
-  Serial.println();
+  Serial.println("Start");
 }
 
 
