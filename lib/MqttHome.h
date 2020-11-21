@@ -55,6 +55,7 @@ class MqttHome
     String _mqttPath; 
     void mqttSendHeader();
     int _mqttLastHeaderSend = 0; 
+    int _mqttLastReconnect = 0; 
     void callback(char *topic, byte *payload, unsigned int length);
     MqttObject _mqTTMessage ; 
     char* _subscribe[10];

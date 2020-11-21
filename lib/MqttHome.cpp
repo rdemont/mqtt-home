@@ -59,18 +59,39 @@ bool MqttHome::mqttLoop()
   mqttClient.loop();
 
   long sec = Functions::getInstance()->second();
-  if (sec != _mqttLastHeaderSend)
+  
+  //Serial.print("Time-sec: ");
+  //Serial.println(sec);
+  
+  if (sec != _mqttLastReconnect)
   {
-    
-    _mqttLastHeaderSend = sec;
-    if (sec%60 == 0)
+    if ((sec-_mqttLastReconnect)%600 == 0)
     {
+      
       //Serial.println("Send header");
       //wifiConnect();
+      _mqttLastReconnect = sec;
+      mqttClient.disconnect();
+
+      //mqttConnect();
+      //mqttSendHeader();
+    }
+  }
+
+
+  if (sec != _mqttLastHeaderSend)
+  {
+    if ((sec-_mqttLastHeaderSend)%60 == 0)
+    {
+      
+      //Serial.println("Send header");
+      //wifiConnect();
+      _mqttLastHeaderSend = sec;
       mqttConnect();
       mqttSendHeader();
     }
   }
+  
 
   
 }

@@ -1,6 +1,7 @@
 
-#include <MqttHome.h>
+
 #include <Functions.h>
+#include <MqttHome.h>
 #include <Arduino.h>
 
 
@@ -10,6 +11,8 @@
 #include <Adafruit_BME280.h>
  
 #define SEALEVELPRESSURE_HPA (1013.25)
+#define PRESSURE_CORRECTION 55.07
+#define TEMPERATURE_CORRECTION -6.1
 
 
 Adafruit_BME280 bme;
@@ -30,9 +33,10 @@ void sendMqtt()
   float temperature = 0.0;
   float humidity = 0.0;
   float pressure = 0.0;
+  
   humidity = bme.readHumidity();
   temperature = bme.readTemperature(); 
-  pressure = bme.readPressure() / 100.0F;       
+  pressure = (bme.readPressure() / 100.0F) + PRESSURE_CORRECTION;       
 
   Serial.println("Send MQTT");
 
@@ -50,11 +54,15 @@ void setup() {
   //delay(100);
 
   bme.begin(0x76); 
+  bme.setTemperatureCompensation(TEMPERATURE_CORRECTION);
+
 
   mqttHome.wifiConnect();
   mqttHome.mqttConnect();  
 
   Serial.println("Start");
+  sendMqtt();
+  printValues();  
 }
 
 
@@ -85,7 +93,7 @@ void printValues() {
   Serial.println(" *F");*/
   
   Serial.print("Pressure = ");
-  Serial.print(bme.readPressure() / 100.0F);
+  Serial.print((bme.readPressure() / 100.0F)+PRESSURE_CORRECTION);
   Serial.println(" hPa");
 
   Serial.print("Approx. Altitude = ");
