@@ -11,7 +11,7 @@
 struct mqttObjectStruct
 {
   String objectName; 
-  float minValue = 0.0;
+  float minValue = 100.0;
   float maxValue = 0.0;
   struct tm minDate; 
   struct tm maxDate;
