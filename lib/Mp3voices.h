@@ -2,6 +2,8 @@
 #ifndef Mp3voices_h
 #define Mp3voices_h
 
+//#include <SoftwareSerial.h>
+#include <DFRobotDFPlayerMini.h>
 
 #include <Arduino.h>
 #include <DFRobotDFPlayerMini.h>
@@ -12,6 +14,7 @@ struct VOICE_FILE {
   int time;
 };
 
+#define VOLUM_MAX 30
 
 
 class Mp3voices
@@ -28,8 +31,12 @@ class Mp3voices
         void play(VOICE_FILE voice);
         void playNumber(int number);
         void playUnitNumber(int number);
+        void playFolder(int folder, int file);
         void volumeUp();
         void volumeDown();
+        int getVolume();
+        void setVolume(int volume);
+        int fileCountsInForder(int folder);
 
 
         VOICE_FILE NUM_0 = {1,10,0};
@@ -77,6 +84,10 @@ class Mp3voices
         VOICE_FILE TXT_REGLE_A = {3,13,0};
         VOICE_FILE TXT_DESACTIVE = {3,14,0};
         VOICE_FILE TXT_ACTIVE = {3,15,0};
+        VOICE_FILE TXT_REGLAGE_DES = {3,16,0};
+        VOICE_FILE TXT_MUSIQUES = {3,17,0};
+        VOICE_FILE TXT_AVEC_LA = {3,18,0};
+        VOICE_FILE TXT_SECONDS = {3,19,0};
 };
 
 

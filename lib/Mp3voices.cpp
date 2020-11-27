@@ -8,6 +8,7 @@
 #include "Mp3voices.h"
 
 
+
 Mp3voices::Mp3voices()
 {
     SoftwareSerial s(10, 11); // RX, TX
@@ -63,6 +64,20 @@ void Mp3voices::loop()
     ;
 }
 
+int Mp3voices::fileCountsInForder(int folder)
+{
+    return player->readFileCountsInFolder(folder);
+}
+
+int Mp3voices::getVolume()
+{
+    return player->readVolume();
+}
+
+void Mp3voices::setVolume(int volume)
+{
+    player->volume(volume);
+}
 
 void Mp3voices::volumeUp()
 {
@@ -73,9 +88,21 @@ void Mp3voices::volumeDown()
     player->volumeDown();
 }
 
+void Mp3voices::playFolder(int folder, int file)
+{
+    player->playFolder(folder,file);
+}
+
+
 void Mp3voices::play(VOICE_FILE voice)
 {
-    player->playFolder(voice.folder,voice.file);
+    Serial.print("folder :");
+    Serial.print(voice.folder);
+    Serial.print(" file : ");
+    Serial.print(voice.file);
+    Serial.println("");
+
+    //player->playFolder(voice.folder,voice.file);
 }
 
 
@@ -175,6 +202,7 @@ void Mp3voices::playUnitNumber(int number)
 
 void Mp3voices::playNumber(int number)
 {
+Serial.println("Number : "+String(number));    
     int rest = number;
     //millier
     int n = number / 1000 ;
