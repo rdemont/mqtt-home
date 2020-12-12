@@ -62,7 +62,8 @@ bool MqttHome::mqttLoop()
   
   //Serial.print("Time-sec: ");
   //Serial.println(sec);
-  
+
+
   if (sec != _mqttLastReconnect)
   {
     if ((sec-_mqttLastReconnect)%600 == 0)
@@ -70,30 +71,25 @@ bool MqttHome::mqttLoop()
       
       //Serial.println("Send header");
       //wifiConnect();
-      _mqttLastReconnect = sec;
+      _mqttLastReconnect = sec+1;
       mqttClient.disconnect();
 
-      //mqttConnect();
-      //mqttSendHeader();
+      mqttConnect();
+      
     }
   }
-
-
   if (sec != _mqttLastHeaderSend)
-  {
-    if ((sec-_mqttLastHeaderSend)%60 == 0)
+  {  
+    if ((sec-_mqttLastHeaderSend)%60 == 0) 
     {
       
       //Serial.println("Send header");
       //wifiConnect();
-      _mqttLastHeaderSend = sec;
+      _mqttLastHeaderSend = sec+1;
       mqttConnect();
       mqttSendHeader();
-    }
+    } 
   }
-  
-
-  
 }
 
 bool MqttHome::mqttConnect()
@@ -123,7 +119,9 @@ bool MqttHome::mqttConnect()
 
     for (int i = 0 ; i <= _subscribeIndex;i++)
     {
-      mqttClient.subscribe(_subscribe[i]);
+      Serial.print("Subscribt ["+String(i)+"]: ");
+      Serial.println(_subscribe[i]);
+      mqttClient.subscribe(Functions::getInstance()->StringToChar(_subscribe[i]));
     }
 
   }
@@ -160,8 +158,9 @@ void MqttHome::mqttSubscribe(char* chanel)
   {
     _subscribeIndex = index ;
   }
-  _subscribe [index] = chanel ;
-
+  _subscribe[index] = chanel ;
+  Serial.print("Do Subscribe ["+String(index)+"]: ");
+  Serial.println(_subscribe[index]);
   mqttClient.subscribe(chanel);
 }
 void MqttHome::mqttUnsubscribe(char* chanel)

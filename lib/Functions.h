@@ -14,6 +14,8 @@ class Functions
   
     char* StringToChar(String str);
 
+    boolean isValidNumber(String str);
+
     //Return time in String 
     String strTime(long val);
 

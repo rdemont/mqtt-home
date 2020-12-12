@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "mqtt-garden",
+			"path": "mqtt-garden"
+		},
+		{
+			"name": "mqtt-display",
+			"path": "mqtt-display"
+		},
+		{
+			"name": "home",
+			"path": "."
+		},
+		{
+			"name": "AlarmeClock",
+			"path": "AlarmeClock"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"istream": "cpp",
+			"ostream": "cpp",
+			"numeric": "cpp",
+			"*.tcc": "cpp",
+			"cmath": "cpp"
+		}
+	}
+}

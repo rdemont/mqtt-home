@@ -58,7 +58,7 @@ class MqttHome
     int _mqttLastReconnect = 0; 
     void callback(char *topic, byte *payload, unsigned int length);
     MqttObject _mqTTMessage ; 
-    char* _subscribe[10];
+    String _subscribe[10];
     int _subscribeIndex;
     
     

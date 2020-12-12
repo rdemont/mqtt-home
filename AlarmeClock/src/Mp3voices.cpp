@@ -11,7 +11,7 @@
 
 Mp3voices::Mp3voices()
 {
-    SoftwareSerial s(10, 11); // RX, TX
+    SoftwareSerial s(1, 2); // RX, TX
     DFRobotDFPlayerMini p ;
     softwareSerial = &s;
     player = &p ;
